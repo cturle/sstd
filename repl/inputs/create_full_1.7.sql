@@ -2,7 +2,7 @@
     create table acceptation.ADRESSERISQUECONTRAT_ADRC (
         ADRC_ID int identity not null,
         ADRC_ADRESSETYPE varchar(255),
-        primary key (PK_ADRC)
+        primary key (ADRC_ID)
     )
 
     create table acceptation.ASSIETTEACCEPTATION_ASSI (
@@ -445,12 +445,12 @@
     )
 
     create table instruction.ASSIETTEGARANTIERISQUE_ASGR (
-        ASGR_Id int identity not null,
+        ASGR_ID int identity not null,
         ASGR_CODE varchar(255),
         ASGR_LIBELLEE varchar(255),
         ASGR_MODIFIABLE bit,
         ASGR_VALEUR double precision,
-        primary key (ASGR_Id)
+        primary key (ASGR_ID)
     )
 
     create table instruction.ASSUREVERSION_ASS (
@@ -887,7 +887,7 @@
         add constraint UK_PRO_CODE  unique (PRO_CODE)
 
     alter table acceptation.ASSUREACCEPTATION_ASSU 
-        add constraint FK_ASSUREACCEPTATION_ASS_PERSONNEACCEPTATION_PER 
+        add constraint FK_ASSUREACCEPTATION_ASSU_PERSONNEACCEPTATION_PER 
         foreign key (ASSU_PER) 
         references acceptation.PERSONNEACCEPTATION_PER
 
@@ -907,7 +907,7 @@
         references acceptation.PERSONNEACCEPTATION_PER
 
     alter table acceptation.CONTRAT_CON 
-        add constraint FK_CONTRAT_CON_ASSUREACCEPTATION_ASS 
+        add constraint FK_CONTRAT_CON_ASSUREACCEPTATION_ASSU 
         foreign key (CON_ASS) 
         references acceptation.ASSUREACCEPTATION_ASSU
 
@@ -952,7 +952,7 @@
         references acceptation.CONTRAT_CON
 
     alter table acceptation.GARANTIEACCEPTATION_GAR 
-        add constraint FK_GARANTIEACCEPTATION_GAR_ASSIETTEACCEPTATION_ASS 
+        add constraint FK_GARANTIEACCEPTATION_GAR_ASSIETTEACCEPTATION_ASSI 
         foreign key (GAR_ASS) 
         references acceptation.ASSIETTEACCEPTATION_ASSI
 
@@ -967,7 +967,7 @@
         references acceptation.RISQUEACCEPTATION_RIS
 
     alter table acceptation.INTERLOCUTEUR_INT 
-        add constraint FK_INTERLOCUTEUR_INT_ADRESSE_ADR 
+        add constraint FK_INTERLOCUTEUR_INT_ADRESSEPERSONNE_ADRP 
         foreign key (INT_ADR) 
         references commun.ADRESSEPERSONNE_ADRP
 
@@ -977,7 +977,7 @@
         references acceptation.PERSONNEACCEPTATION_PER
 
     alter table acceptation.PERSONNEACCEPTATION_PER 
-        add constraint FK_PERSONNEACCEPTATION_PER_ADRESSE_ADR 
+        add constraint FK_PERSONNEACCEPTATION_PER_ADRESSEPERSONNE_ADRP 
         foreign key (PER_ADR) 
         references commun.ADRESSEPERSONNE_ADRP
 
@@ -992,7 +992,7 @@
         references commun.VENDEUR_VEN
 
     alter table acceptation.RISQUEACCEPTATION_RIS 
-        add constraint FK_RISQUEACCEPTATION_RIS_ADRESSEACCEPTATION_ADR 
+        add constraint FK_RISQUEACCEPTATION_RIS_ADRESSERISQUECONTRAT_ADRC 
         foreign key (RIS_ADR) 
         references acceptation.ADRESSERISQUECONTRAT_ADRC
 
@@ -1007,7 +1007,7 @@
         references acceptation.CONTRAT_CON
 
     alter table affaire.BENEFICIAIRE_BEN 
-        add constraint FK_BENEFICIAIRE_BEN_ADRESSE_ADRT 
+        add constraint FK_BENEFICIAIRE_BEN_ADRESSEPERSONNE_ADRP 
         foreign key (BEN_ADRT) 
         references commun.ADRESSEPERSONNE_ADRP
 
@@ -1017,7 +1017,7 @@
         references affaire.PERSONNEDOSSIER_PER
 
     alter table affaire.DEMANDEUR_DEM 
-        add constraint FK_DEMANDEUR_DEM_ADRESSE_ADRT 
+        add constraint FK_DEMANDEUR_DEM_ADRESSEPERSONNE_ADRP 
         foreign key (DEM_ADR) 
         references commun.ADRESSEPERSONNE_ADRP
 
@@ -1067,7 +1067,7 @@
         references affaire.DOSSIER_DOS
 
     alter table affaire.INTERLOCUTEUR_INT 
-        add constraint FK_INTERLOCUTEUR_INT_ADRESSE_ADRT 
+        add constraint FK_INTERLOCUTEUR_INT_ADRESSEPERSONNE_ADRP 
         foreign key (INT_ADR) 
         references commun.ADRESSEPERSONNE_ADRP
 
@@ -1127,7 +1127,7 @@
         references commun.CONVENTION_COV
 
     alter table commun.VENDEUR_VEN 
-        add constraint FK_VENDEUR_VEN_ADRESSE_ADRT 
+        add constraint FK_VENDEUR_VEN_ADRESSEPERSONNE_ADRP 
         foreign key (VEN_ADRT) 
         references commun.ADRESSEPERSONNE_ADRP
 
@@ -1137,7 +1137,7 @@
         references affaire.DEMANDEUR_DEM
 
     alter table instruction.BENEFICIAIREPROPO_BEN 
-        add constraint FK_BENEFICIAIREPROPO_BEN_ADRESSE_ADRT 
+        add constraint FK_BENEFICIAIREPROPO_BEN_ADRESSEPERSONNE_ADRP 
         foreign key (BEN_ADRT) 
         references commun.ADRESSEPERSONNE_ADRP
 
@@ -1222,7 +1222,7 @@
         references instruction.SINISTRALITE_SIN
 
     alter table instruction.RISQUEOBJET_RISO 
-        add constraint FK_RISQUEOBJET_RISO_ADRESSE_ADR 
+        add constraint FK_RISQUEOBJET_RISO_ADRESSERISQUE_ADRR 
         foreign key (RISO_ADR) 
         references commun.ADRESSERISQUE_ADRR
 
@@ -1317,7 +1317,7 @@
         references instruction.PROPOSITIONSTANDARD_PRO
 
     alter table instruction.VERSIONRISQUE_VRIS 
-        add constraint FK_VERSIONRISQUE_VRIS_ADRESSE_ADR 
+        add constraint FK_VERSIONRISQUE_VRIS_ADRESSERISQUE_ADRR 
         foreign key (VRIS_ADR) 
         references commun.ADRESSERISQUE_ADRR
 
